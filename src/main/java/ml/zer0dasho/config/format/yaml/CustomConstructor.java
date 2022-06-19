@@ -8,12 +8,13 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;
+import org.yaml.snakeyaml.nodes.SequenceNode;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class CustomConstructor extends Constructor {
-
+	
 	private Object constructCS(Map<Object, Object> map) {
 		
 		Map<String, Object> result = Maps.newLinkedHashMap();
@@ -61,18 +62,33 @@ public class CustomConstructor extends Constructor {
 	@Override
 	protected Object constructObject(Node node) {
 		
-		if(node instanceof MappingNode) {
-			try {
-				if(node.getType().asSubclass(ConfigurationSerializable.class) != null) {
+		try {
+			if(node.getType().asSubclass(ConfigurationSerializable.class) != null) {
+				
+				if(node instanceof MappingNode) {
 					Map<Object, Object> cs = super.constructMapping((MappingNode) node);
 					
 					if(cs.containsKey(ConfigurationSerialization.SERIALIZED_TYPE_KEY))
 						return constructCS(cs);
 				}
-			} catch(Exception ex) {}
-		}
+				
+				else if(node instanceof SequenceNode) {
+					List<Node> nodes = ((SequenceNode) node).getValue();
+					
+					for(Node n : nodes) {
+						if(n instanceof MappingNode) {
+							Map<Object, Object> cs = super.constructMapping((MappingNode) n);
+							
+							if(cs.containsKey(ConfigurationSerialization.SERIALIZED_TYPE_KEY))
+								return constructCS(cs);
+						}
+					}
+				}
+			}
+			
+		} catch(Exception ex) {}
 		
+
 		return super.constructObject(node);
 	}
-	
 }
