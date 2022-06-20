@@ -1,15 +1,15 @@
-# Config
-## What is config?
-Config is a library used for managing configuration files in Spigot plugins.  
+## What is Config?
 
-## Version
-This plugin is made for Spigot 1.19  
+**Version**: 1.19
+  
+Config is a Bukkit library used for managing configuration files.
 
 ## How to use
 
-To use in your plugin, create a Java Bean that represents the configuration you want, and extends ml.zer0dasho.config.Config;
-To load from a file, use Config.load();
-To save, you can use javaBean.save();
+Config works by populating a [JavaBean](https://stackoverflow.com/questions/3295496/what-is-a-javabean-exactly) with values from a configuration file.  
+  
+- Use Config.load(Class<? extends Config> type, File path, Formatter format, SafeSupplier<String> defaultResource) to populate a JavaBean.
+- Once the JavaBean is populated, you can use javaBean.save() to save its current state to the configuration file.
 
 ### Example
 
