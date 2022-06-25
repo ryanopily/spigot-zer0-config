@@ -3,8 +3,10 @@ package ml.zer0dasho.config.format.yaml;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.inventory.ItemStack;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;
@@ -19,7 +21,6 @@ public class CustomConstructor extends Constructor {
 		Map<String, Object> result = Maps.newLinkedHashMap();
 		
 		map.entrySet().forEach(e -> {
-			
 			Object k = e.getKey();
 			Object v = e.getValue();
 			
@@ -54,6 +55,11 @@ public class CustomConstructor extends Constructor {
 				result.put(k.toString(), newValue);
 			}
 		});
+		
+		if(result.containsKey("v")) {
+			Map<String, Object> item = new ItemStack(Material.DIRT).serialize();
+			result.put("v", item.get("v"));
+		}
 		
 		return ConfigurationSerialization.deserializeObject(result);
 	}

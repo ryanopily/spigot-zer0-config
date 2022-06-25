@@ -1,8 +1,9 @@
 main: ml.zer0dasho.config.Main
-version: 1.0.0
+version: 1.0.1
 name: Config
 
-api-version: 1.19
+author: "0-o#9646"
+api-version: 1.13
 
 libraries:
     - com.google.code.gson:gson:2.9.0
