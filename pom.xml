@@ -52,12 +52,12 @@
 		<repository>
 			<id>nexus-site</id>
 			<name>public-releases</name>
-			<url>http://repo.akiradev.xyz/repository/public-releases/</url>
+			<url>https://repo.akiradev.xyz/repository/public-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-site</id>
 			<name>public-snapshots</name>
-			<url>http://repo.akiradev.xyz/repository/public-snapshots/</url>
+			<url>https://repo.akiradev.xyz/repository/public-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
